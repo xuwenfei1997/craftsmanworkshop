@@ -4953,3 +4953,25 @@ color: white;
 #timer{
   margin:auto;
 }
+
+#languageSelect{
+  position: fixed;
+  right:120px;
+  top:50px;
+  display: flex;
+  flex-direction: row;
+}
+
+.languageLOGO{
+  width: 30px;
+  height: 20px;
+  margin-left: 2px;
+  cursor:pointer ;
+}
+
+#spanLanguage{
+
+  font-family: "Karla", sans-serif;
+
+  color: white;
+}

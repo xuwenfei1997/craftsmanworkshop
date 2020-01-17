@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Home </title>
+  <title>Where&nbspto,miss? </title>
 
   <meta charset="utf-8">
   <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
@@ -36,7 +36,7 @@
     </div>
   </div>
 
-  <main class="main-wrapper hero bg-img" style="background-image: url(img/hero/backgroundimg.jpg);">
+  <main class="main-wrapper hero bg-img" style="background-image: url(img/backgroundimg.jpg);">
     <div id='borderdiv'>
       <div id='lineborder'>
         <div id='borderTable'></div>
@@ -59,6 +59,11 @@
 
     <!-- Navigation -->
     <header class="nav nav--transparent nav--always-fixed nav--sticky-on-mobile">
+      <div id='languageSelect'>
+        <span id='spanLanguage'>Language:</span>
+        <img class='languageLOGO' src='img/language_chn.png' onclick="CHNLanguage()">
+        <img class='languageLOGO' src='img/language_jpn.jpg' onclick="JPNLanguage()">
+      </div>
       <div class="nav__holder nav__holder--no-line" id="sticky-nav">
 
         <div class="container-fluid container-semi-fluid">
@@ -131,8 +136,6 @@
 
         <!-- Hero -->
         <div class="section hero bg-img">
-
-
           <div class="container">
             <div class="nightRight">
               <div class="shooting_star"></div>
@@ -173,7 +176,6 @@
 
         <!-- Hero -->
         <div class="section hero bg-img">
-
           <div class="container">
             <div class="nightRight">
               <div class="shooting_star"></div>
@@ -257,12 +259,10 @@
     });
 
   </script>
-  <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+  
   <script type="text/javascript">
-    // var flag = 1
-    console.log(returnCitySN["cname"])
-    if(returnCitySN["cname"]=='JAPAN'){
-    // if (flag == 1) {
+        $('#gamelogoJ').hide();
+  function JPNLanguage(){
       $('#s1').html('見て見てパリさん<br>これは少女たちの眩しいヒカリが<br> 集まってきた星夜の物語<br>')
       $('#s2').html('神楽めあ')
       $('#s3').html('のため知り合った人<br>たちがキラキラと輝いてる星空を描いた世界')
@@ -272,11 +272,30 @@
       $('#s7').html('えっ！新入導く？')
       $('#s8').html('」<br>店長の笑顔の裏で<br>彼女を待っているのは一体何でしょうか！')
       $('#s9').text('近日公開')
-
+      $('#gamelogoJ').show();
       $('#gamelogoC').hide();
+  }
 
-
-    }else{$('#gamelogoJ').hide();}
+  function CHNLanguage(){
+      
+      $('#s1').html('谜迭谜迭帕里桑<br>这是由少女们耀眼且绚烂的光芒<br>聚集而成的星夜物語<br>是一群因')
+      $('#s2').html('神楽めあ')
+      $('#s3').html('相识的人<br>为那片闪烁星空所描绘的世界')
+      $('#s4').html('任职于Virtual98虚拟咖啡厅的活力女仆<br>')
+      $('#s5').html('神楽めあ')
+      $('#s6').html('，面临被店长打出差评的大危机下<br>突然接到了意外的指令<br>「')
+      $('#s7').html('诶！带领新人？')
+      $('#s8').html('」<br>在店长的笑容背后<br>等待着她的又会是什么呢')
+      $('#s9').text('Coming Soon')
+      
+      
+      
+      
+      $('#gamelogoJ').hide();
+      $('#gamelogoC').show();
+      
+      }
+    
 
 
 
