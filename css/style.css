@@ -4963,13 +4963,13 @@ color: white;
 }
 
 .languageLOGO{
-  width: 30px;
-  height: 20px;
+
   margin-left: 2px;
   cursor:pointer ;
+  border:1px solid white;
 }
 
-#spanLanguage{
+.spanLanguage{
 
   font-family: "Karla", sans-serif;
 
