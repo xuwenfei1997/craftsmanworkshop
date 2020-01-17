@@ -38,9 +38,11 @@
 
   <main class="main-wrapper hero bg-img" style="background-image: url(img/backgroundimg.jpg);">
     <div id='borderdiv'>
-      <div id='lineborder'>
-        <div id='borderTable'></div>
-      </div>
+      <div  id='leftborder'></div>
+      <div  id='topborder'></div>
+      <div  id='rightborder'></div>
+      <div  id='bottomborder'></div>
+      <div style='border:2px solid white;top:32px;left:0;position: absolute;'></div>
       <div id='left-top-border' class='border' style="top:0; left:0"><img class='borderimg'
           src="img/left_top_border.png"></div>
       <div id='right-top-border' class='border' style="top:0; right:0"><img class='borderimg'
@@ -163,7 +165,7 @@
               <div class="hero__inner">
                 <h3 class="hero__subtitle--uppercase"></h3>
                 <span class="brieftext" id='s1'>谜迭谜迭帕里桑<br>这是由少女们耀眼且绚烂的光芒<br>聚集而成的星夜物語<br>是一群因</span>
-                <span class="brieftext meatext" id='s2'>神樂めあ</span>
+                <span class="brieftext meatext" id='s2'>神楽めあ</span>
                 <span class="brieftext" id='s3'>相识的人<br>为那片闪烁星空所描绘的世界</span>
               </div>
 
@@ -224,7 +226,7 @@
                   <div id='pageofcoming' style="text-align: center;">
                     <span class="brieftext" id='s9'>Coming Soon</span>
                     <div id='timer'></div>
-                    <img id='test' src="img/test.png" alt="test">
+                    <a id='test' href="img/test.png" download="test">点击这里下载测试文件</a>
                 </div>
               </div>
             </div>
@@ -244,26 +246,36 @@
   <script type="text/javascript" src="js/plugins.js"></script>
   <script type="text/javascript" src="js/scripts.js"></script>
   <script>
-
-
-    $(window).resize(function () {
-      var borderPosition = window.innerWidth / 2 - 100;
+    function Fresize() {
+      var borderdivX =window.innerWidth -64;
+      var borderdivY =window.innerHeight -64;
+      var borderPositionT = window.innerWidth / 2 - 90;
+      var borderPositionB = window.innerWidth / 2 - 82;
       var videoPositionX = window.innerWidth / 2 - 450;
       var videoPositionY = window.innerHeight / 2 - 300;
       var timerPositionX=window.innerWidth / 2   - $("#pageofcoming").width()/2;
       var timerPositionY=window.innerHeight / 2  - $("#pageofcoming").height()/2;
       
-      $('#top-border').attr({ "style": "top:0;left:" + borderPosition + 'px' })
-      $('#bottom-border').attr({ "style": "bottom:0;left:" + borderPosition + 'px' })
+      $('#top-border').attr({ "style": "top:0;left:" + borderPositionT + 'px' })
+      $('#bottom-border').attr({ "style": "bottom:0;left:" + borderPositionB + 'px' })
       $('#videoframe').attr({ "style": "top:" + videoPositionY + 'px;left:' + videoPositionX + "px" })
       $('#pageofcoming').attr({ "style": "top:" + timerPositionY + 'px;left:' + timerPositionX + "px" })
-    });
+      
+      $('#leftborder').attr({ "style": "height:" + borderdivY + 'px' })
+      $('#rightborder').attr({ "style": "height:" + borderdivY + 'px' })
+      $('#topborder').attr({ "style": "width:" + borderdivX + 'px' })
+      $('#bottomborder').attr({ "style": "width:" + borderdivX + 'px' })
+    }
+
+
+    $(window).resize(Fresize());
 
   </script>
   
   <script type="text/javascript">
         $('#gamelogoJ').hide();
   function JPNLanguage(){
+  
       $('#s1').html('見て見てパリさん<br>これは少女たちの眩しいヒカリが<br> 集まってきた星夜の物語<br>')
       $('#s2').html('神楽めあ')
       $('#s3').html('のため知り合った人<br>たちがキラキラと輝いてる星空を描いた世界')
@@ -275,10 +287,11 @@
       $('#s9').text('近日公開')
       $('#gamelogoJ').show();
       $('#gamelogoC').hide();
+      Fresize()
   }
 
   function CHNLanguage(){
-      
+ 
       $('#s1').html('谜迭谜迭帕里桑<br>这是由少女们耀眼且绚烂的光芒<br>聚集而成的星夜物語<br>是一群因')
       $('#s2').html('神楽めあ')
       $('#s3').html('相识的人<br>为那片闪烁星空所描绘的世界')
@@ -294,6 +307,7 @@
       
       $('#gamelogoJ').hide();
       $('#gamelogoC').show();
+      Fresize()
       
       }
     
