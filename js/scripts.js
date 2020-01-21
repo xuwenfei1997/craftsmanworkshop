@@ -54,12 +54,12 @@
 
   /* Mobile Detect
   -------------------------------------------------------*/
-  if (/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent || navigator.vendor || window.opera)) {
-    $("html").addClass("mobile");
-  }
-  else {
-    $("html").removeClass("mobile");
-  }
+  // if (/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent || navigator.vendor || window.opera)) {
+  //   $("html").addClass("mobile");
+  // }
+  // else {
+  //   $("html").removeClass("mobile");
+  // }
 
   /* IE Detect
   -------------------------------------------------------*/
@@ -117,32 +117,32 @@
 
   /* Mobile Navigation
   -------------------------------------------------------*/
-  var $dropdownTrigger = $('.nav__dropdown-trigger');
-  $dropdownTrigger.on('click', function() {
+  // var $dropdownTrigger = $('.nav__dropdown-trigger');
+  // $dropdownTrigger.on('click', function() {
 
-    if ($(this).hasClass("active")) {
-      $(this).removeClass("active");
-    }
+  //   if ($(this).hasClass("active")) {
+  //     $(this).removeClass("active");
+  //   }
 
-    else {
-      $(this).addClass("active");
-    }
-  });
+  //   else {
+  //     $(this).addClass("active");
+  //   }
+  // });
 
-  $('.nav__dropdown').on('click', '> a', function(e) {
-    e.preventDefault();
-  });
+  // $('.nav__dropdown').on('click', '> a', function(e) {
+  //   e.preventDefault();
+  // });
 
-  if ( $('html').hasClass('mobile') ) {
-    $('body').on('click',function() {
-      $('.nav__dropdown-menu').addClass('hide-dropdown');
-    });
+  // if ( $('html').hasClass('mobile') ) {
+  //   $('body').on('click',function() {
+  //     $('.nav__dropdown-menu').addClass('hide-dropdown');
+  //   });
 
-    $('.nav__dropdown').on('click',function(e) {
-      e.stopPropagation();
-      $('.nav__dropdown-menu').removeClass('hide-dropdown');
-    });
-  }
+  //   $('.nav__dropdown').on('click',function(e) {
+  //     e.stopPropagation();
+  //     $('.nav__dropdown-menu').removeClass('hide-dropdown');
+  //   });
+  // }
 
 
   /* Fullscreen Navigation

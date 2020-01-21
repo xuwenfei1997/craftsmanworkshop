@@ -38,10 +38,10 @@
 
   <main class="main-wrapper hero bg-img" style="background-image: url(img/backgroundimg.jpg);">
     <div id='borderdiv'>
-      <div  id='leftborder'></div>
-      <div  id='topborder'></div>
-      <div  id='rightborder'></div>
-      <div  id='bottomborder'></div>
+      <div id='leftborder'></div>
+      <div id='topborder'></div>
+      <div id='rightborder'></div>
+      <div id='bottomborder'></div>
 
       <div id='left-top-border' class='border' style="top:0; left:0"><img class='borderimg'
           src="img/left_top_border.png"></div>
@@ -60,9 +60,9 @@
     </div>
 
     <!-- Navigation -->
-    <header class="nav nav--transparent nav--always-fixed nav--sticky-on-mobile">
+    <header class="nav nav--transparent nav--always-fixed">
       <div id='languageSelect'>
-        <span class='spanLanguage'>Language:</span>
+        <span class='spanLanguage'></span>
         <span class='languageLOGO spanLanguage' onclick="CHNLanguage()">简体中文</span>
         <span>&nbsp/&nbsp</span>
         <span class='languageLOGO spanLanguage' onclick="JPNLanguage()">日本語</span>
@@ -78,6 +78,10 @@
                 <a href="index.html" class="logo__link">
                   <img class="logo logo--light" id='gamelogoJ' src="img/logo_game_japanese.png" alt="logo">
                   <img class="logo logo--light" id='gamelogoC' src="img/logo_game_chinese.png" alt="logo">
+                </a>
+                <a href='https://space.bilibili.com/405573324' class="logo__link">
+                  <img class="logo logo--light" id='grouplogo' src='img/grouplogo.png' alt='手艺人工坊'>
+
                 </a>
               </div>
             </div> <!-- end nav-header -->
@@ -105,12 +109,12 @@
       <div class="nav__overlay" id="nav__overlay">
         <div class="nav__overlay__menu">
           <ul>
-            <li><a href="/">A&nbspSecret&nbspMake&nbspWoman&nbspWoman.</a></li>
-            <!-- <li><a href="#">序言</a></li>
-            <li><a href="#">简介</a></li>
-            <li><a href="#">视频</a></li>
-            <li><a href="#">下载页面</a></li>
-            <li><a href="#">关于我们</a></li> -->
+            <li class='navChosens' onclick="page(0)">About Us</li>
+            <li class='navChosens' onclick="page(1)">Game Introduction</li>
+            <li class='navChosens' onclick="page(2)">Game PV</li>
+            <li class='navChosens' onclick="page(3)">Heroine Introduction</li>
+            <li class='navChosens' onclick="page(4)">Game Download</li>
+            <li class='navChosens' onclick="page(5)">Contact Us</li>
           </ul>
         </div>
 
@@ -180,64 +184,208 @@
         <!-- Hero -->
         <div class="section hero bg-img">
           <div class="container">
-            <div class="nightRight">
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-              <div class="shooting_star"></div>
-            </div>
+
             <div class="hero__outer">
               <div class="hero__inner">
                 <h3 class="hero__subtitle--uppercase" style="text-align:right;">
                   <span class="brieftext" id='s4'>任职于Virtual98虚拟咖啡厅的活力女仆<br></span>
                   <span class="brieftext meatext" id='s5'>神楽めあ</span>
                   <span class="brieftext" id='s6'>面临被店长打出差评的大危机下<br>突然接到了意外的指令<br>「</span>
-                  <span class="brieftext meatext" id='s7'>诶！带领新人？</span>
+                  <span class="brieftext meatext" id='s7'>诶！指导新人？</span>
                   <span class="brieftext" id='s8'>」<br>在店长的笑容背后<br>等待着她的又会是什么呢</span></h3>
               </div>
             </div>
-
+            <div class="nightLeft">
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+              <div class="shooting_star"></div>
+            </div>
 
           </div>
         </div> <!-- end hero -->
 
-
-
-        <!-- Hero -->
         <div class="section hero bg-img">
-           <div class="hero__outer">
-              <div class="hero__inner">
-                <h3 class="hero__subtitle--uppercase">
-                  <div id='pageofcoming' style="text-align: center;">
-                    <span class="brieftext" id='s9'>Coming Soon</span>
-                    <div id='timer'></div>
-                    <a id='test' href="img/test.png" download="test">点击这里下载测试文件</a>
-                </div>
+
+          <div id='main'>
+            <iframe class='videoframe' src="https:///player.bilibili.com/player.html?aid=59530828&cid=104020671&page=1"
+              scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+          </div>
+
+        </div> <!-- end hero -->
+
+        <!-- Services -->
+        <div class="section hero bg-img">
+          <div class="container pt-sm-60">
+
+            <div class="heading-row text-center">
+              <h2 class="heading heading--lg" id='s9'>六位追梦者的故事</h2>
+              <p class="subheading white hidden-sm hidden-xs" id='s10'>她与他们的物语</p>
+            </div>
+
+            <div class="row">
+              <div id="owl-services-slider" class="owl-carousel owl-theme">
+
+                <div class="feature feature--transparent text-center">
+                  <div class="feature__base feature--border">
+                    <a href='https://space.bilibili.com/349991143' class="feature__icon-holder">
+                      <img src='img/heroineIcon/1.png'>
+                    </a>
+                    <div class="feature__text">
+                      <h3 class="feature__title bottom-line" id='s11'>神乐芽亚</h3>
+                      <p class="feature__text__paragraph" id='s12'>Virtual98咖啡厅的正式女仆<br>主要负责前台工作<br>“主人 大小姐
+                        钱都准备好了么<br>芽亚的服务可不免费哦”<br>特立独行的她受客人追捧<br>也让店长头疼<br>这样的她 心中其实藏有一个梦想</p>
+                    </div>
+                  </div>
+                </div> <!-- end feature item -->
+
+                <div class="feature feature--transparent text-center">
+                  <div class="feature__base feature--border">
+                    <a href='https://space.bilibili.com/375504219' class="feature__icon-holder">
+                      <img src='img/heroineIcon/2.png'>
+                    </a>
+                    <div class="feature__text">
+                      <h3 class="feature__title bottom-line" id='s13'>湊阿库娅</h3>
+                      <p class="feature__text__paragraph" id='s14'>Virtual98咖啡厅的见习女仆<br>前台实习工作中<br>这一份工作 我会努力的！！！！！<br>诶
+                        不能这样大喊大叫么<br>天使般可爱的外表和充满活力的态度<br>料理方面有着毁灭性的才能<br>和芽亚似乎有着颇深的渊源</p>
+                    </div>
+                  </div>
+                </div> <!-- end feature item -->
+
+                <div class="feature feature--transparent text-center">
+                  <div class="feature__base feature--border">
+                    <a href="https://space.bilibili.com/477504261" class="feature__icon-holder">
+                      <img src='img/heroineIcon/3.png'>
+                    </a>
+                    <div class="feature__text">
+                      <h3 class="feature__title bottom-line" id='s15'>雏</h3>
+                      <p class="feature__text__paragraph" id='s16'>Virtual98咖啡厅的女仆<br>是咖啡厅的“救火队员”<br>“好寂寞 为什么会这样呢
+                        <br>为什么明明是假期却没有人陪雏玩呢”<br>贪玩却有着众多技能<br>能在各种地方都帮上忙<br>是一个极看重友情的女孩子</p>
+                    </div>
+                  </div>
+                </div> <!-- end feature item -->
+
+                <div class="feature feature--transparent text-center">
+                  <div class="feature__base feature--border">
+                    <a href="https://space.bilibili.com/80387576" class="feature__icon-holder">
+                      <img src='img/heroineIcon/4.png'>
+                    </a>
+
+                    <div class="feature__text">
+                      <h3 class="feature__title bottom-line" id='s17'>信姬</h3>
+                      <p class="feature__text__paragraph" id='s18'>Virtual98咖啡厅的女仆长<br>店内地位仅次于店长<br>“真是的 你到底是怎么了呀<br>我呀
+                        很理解你的心情哦”<br>充满着电波感和中二气息<br>但在关键时刻却意外的可靠<br><br></p>
+                    </div>
+                  </div>
+                </div> <!-- end feature item -->
+
+                <div class="feature feature--transparent text-center">
+                  <div class="feature__base feature--border">
+                    <a href="https://space.bilibili.com/3149619" class="feature__icon-holder">
+                      <img src='img/heroineIcon/5.png'>
+                    </a>
+
+                    <div class="feature__text">
+                      <h3 class="feature__title bottom-line" id='s19'>玛娜</h3>
+                      <p class="feature__text__paragraph" id='s20'>Virtual98咖啡厅的女仆<br>负责后厨<br>“我为大家做好了点心<br>可以的话
+                        请享用吧”<br>性格有些柔弱内向<br>一旦固执起来……<br><br></p>
+                    </div>
+                  </div>
+                </div> <!-- end feature item -->
+
+                <div class="feature feature--transparent text-center">
+                  <div class="feature__base feature--border">
+                    <a href="https://space.bilibili.com/1576121" class="feature__icon-holder">
+                      <img src='img/heroineIcon/6.png'>
+                    </a>
+                    <div class="feature__text">
+                      <h3 class="feature__title bottom-line" id='s21'>店长</h3>
+                      <p class="feature__text__paragraph" id='s22'>Virtual98咖啡厅的店长<br>认真负责
+                        事必躬亲<br>经营着咖啡厅的她<br>并没有忘记自己的梦想<br><br><br><br></p>
+                    </div>
+                  </div>
+                </div> <!-- end feature item -->
+
+
               </div>
             </div>
 
-
           </div>
+        </div> <!-- end services -->
+
+
+        <div class="section hero bg-img">
+
+          <div id='main'>
+            <div id='downloadFrame'>
+              <p class="brieftext">下载链接：</p>
+                <p class="brieftext">MD5：</p>
+                <div ><p class="brieftext">百度网盘：</p><span id='downloadDiv'>testtest</span></div>
+                <div ><p class="brieftext">OneDrive：</p><span id='downloadDiv'>testtest</span></div style='height: 36px;'>
+            
+            
+            </div>
+          </div>
+
         </div> <!-- end hero -->
 
 
-      </div> <!-- end content wrapper -->
+
+        <!-- Contact -->
+        <div class="section hero bg-img">
+          <div class="container pt-sm-60">
+            <div class="hero__outer">
+              <div class="hero__inner text-center">
+
+                <div class="heading-row text-center">
+                  <h2 class="heading heading--lg" id='s23'>联系、合作或加入我们</h2>
+                  <p class="subheading white hidden-xs">
+                  </p>
+                </div>
+
+                <div class="contact-item">
+                  <p><a href="https://space.bilibili.com/405573324" target="_blank">Bilibili：手艺人工坊</a></p>
+                </div> <!-- end address -->
+
+
+                <div class="contact-item">
+                  <span class="contact-item__title">Email:</span>
+                  <a href="mailto:feedback@virtual98.com" class="contact-item__email">feedback@virtual98.com</a>
+                </div> <!-- end email -->
+
+                <!-- <div class="social-icons social-icons--nobase social-icons--white mt-50">
+                <a href="#"><i class="ui-twitter"></i></a>
+                <a href="#"><i class="ui-facebook"></i></a>
+                <a href="#"><i class="ui-linkedin"></i></a>
+                <a href="#"><i class="ui-instagram"></i></a>
+              </div> -->
+
+              </div>
+            </div>
+          </div>
+        </div> <!-- end contact -->
+      </div> <!-- end fullpage -->
+
+
+
+
+    </div> <!-- end content wrapper -->
   </main> <!-- end main wrapper -->
 
 
@@ -248,35 +396,37 @@
   <script type="text/javascript" src="js/scripts.js"></script>
   <script>
     function Fresize() {
-      var borderdivX =window.innerWidth -64;
-      var borderdivY =window.innerHeight -64;
+      var borderdivX = window.innerWidth - 64;
+      var borderdivY = window.innerHeight - 64;
       var borderPositionT = window.innerWidth / 2 - 90;
       var borderPositionB = window.innerWidth / 2 - 82;
       var videoPositionX = window.innerWidth / 2 - 450;
-      var videoPositionY = window.innerHeight / 2 - 300;
-      var timerPositionX=window.innerWidth / 2   - $("#pageofcoming").width()/2;
-      var timerPositionY=window.innerHeight / 2  - $("#pageofcoming").height()/2;
-      
+      var videoPositionY = window.innerHeight / 2 - 250;
+      var downloadPositionX = window.innerWidth / 2 - $("#downloadFrame").width() / 2;
+      var downloadPositionY = window.innerHeight / 2 - $("#downloadFrame").width() / 2;
+      var timerPositionX = window.innerWidth / 2 - $("#pageofcoming").width() / 2;
+      var timerPositionY = window.innerHeight / 2 - $("#pageofcoming").height() / 2;
+
       $('#top-border').attr({ "style": "top:0;left:" + borderPositionT + 'px' })
       $('#bottom-border').attr({ "style": "bottom:0;left:" + borderPositionB + 'px' })
-      $('#videoframe').attr({ "style": "top:" + videoPositionY + 'px;left:' + videoPositionX + "px" })
-      $('#pageofcoming').attr({ "style": "top:" + timerPositionY + 'px;left:' + timerPositionX + "px" })
-      
+      $('.videoframe').attr({ "style": "top:" + videoPositionY + 'px;left:' + videoPositionX + "px" })
+      $('#downloadFrame').attr({ "style": "top:" + downloadPositionY + 'px;left:' + downloadPositionX + "px" })
       $('#leftborder').attr({ "style": "height:" + borderdivY + 'px' })
       $('#rightborder').attr({ "style": "height:" + borderdivY + 'px' })
       $('#topborder').attr({ "style": "width:" + borderdivX + 'px' })
       $('#bottomborder').attr({ "style": "width:" + borderdivX + 'px' })
+
     }
 
 
     $(window).resize(Fresize());
 
   </script>
-  
+
   <script type="text/javascript">
-        $('#gamelogoJ').hide();
-  function JPNLanguage(){
-  
+    $('#gamelogoJ').hide();
+    function JPNLanguage() {
+
       $('#s1').html('見て見てパリさん<br>これは少女たちの眩しいヒカリが<br> 集まってきた星夜の物語<br>')
       $('#s2').html('神楽めあ')
       $('#s3').html('のため知り合った人<br>たちがキラキラと輝いてる星空を描いた世界')
@@ -284,34 +434,63 @@
       $('#s5').html('神楽めあ')
       $('#s6').html('は<br>店長の低い評価に向けて大ピンチに<br>急に意外のコマンドを受けた<br>「')
       $('#s7').html('えっ！新入導く？')
-      $('#s8').html('」<br>店長の笑顔の裏で<br>彼女を待っているのは一体何でしょうか！')
-      $('#s9').text('近日公開')
+      $('#s8').html('」<br>店長の笑顔の裏で<br>彼女を待っているのは一体何でしょうか')
+
+      $('#s9').html('六人の夢追い人の物語')
+      $('#s10').html('彼女と彼たちの物語だ')
+      $('#s11').html('神楽めあ')
+      $('#s12').html('Virtual98カフェの正式メイド<br>フロントの仕事を担当する<br>"ご主人様　お嬢様　お金はもう準備しましたか<br>めあのサービスは無料ではありませんからね”<br>独立独行する彼女は客に持てはやされている<br>店長を悩ませる<br>そんな彼女の胸には夢を一つ隠している')
+      $('#s13').html('湊あくあ')
+      $('#s14').html('Virtual98カフェの見習いメイド<br>フロント実習中<br>この仕事　頑張ります！！！！！<br>え　そう叫んではいけないの<br>天使のようなかわいい外見と元気に満ちてる態度<br>料理には壊滅的な才能がある<br>めあと深い縁があるようだ<br><br><br><br>')
+      $('#s15').html('ひな')
+      $('#s16').html('Virtual98カフェのメイド<br>カフェの“消火隊員”<br>“寂しい　何でこうなるんの<br>なぜ休みなのに遊びしてくれる人がいないの”<br>遊びほうけるだが技能をいっぱい持ってる<br>いろんなところで力になれる<br>友情を大切にする女の子<br><br><br>')
+      $('#s17').html('のぶひめ')
+      $('#s18').html('Virtual98カフェのメイド長<br>店長に次ぐ地位にある<br>“まったく　一体どうしたの<br>私ね　君の気持ちよく分かってるよ”<br>電波感と中二の感じが満ちる<br>肝心な時には意外に頼もしい<br><br><br><br><br><br>')
+      $('#s19').html('マナ')
+      $('#s20').html('Virtual98カフェのメイド<br> キッチンの仕事を勤める<br>“みんなにお菓子を用意した<br>よければ　お召し上がりくださいませ”<br>性格が気弱で内向である<br>意固地になると……<br><br><br><br><br>')
+      $('#s21').html('店長')
+      $('#s22').html('Virtual98カフェの店長<br>まじめで責任感が強い　何でも必ず自分でやる<br>カフェを経営してる彼女が<br>自分のゆめを忘れず<br><br><br><br><br><br><br>')
+      $('#s23').html('連絡します')
       $('#gamelogoJ').show();
       $('#gamelogoC').hide();
       Fresize()
-  }
+    }
 
-  function CHNLanguage(){
- 
+    function CHNLanguage() {
+
       $('#s1').html('谜迭谜迭帕里桑<br>这是由少女们耀眼且绚烂的光芒<br>聚集而成的星夜物語<br>是一群因')
       $('#s2').html('神楽めあ')
       $('#s3').html('相识的人<br>为那片闪烁星空所描绘的世界')
       $('#s4').html('任职于Virtual98虚拟咖啡厅的活力女仆<br>')
       $('#s5').html('神楽めあ')
       $('#s6').html('面临被店长打出差评的大危机下<br>突然接到了意外的指令<br>「')
-      $('#s7').html('诶！带领新人？')
+      $('#s7').html('诶！指导新人？')
       $('#s8').html('」<br>在店长的笑容背后<br>等待着她的又会是什么呢')
-      $('#s9').text('Coming Soon')
-      
-      
-      
-      
+      $('#s9').html('六位追梦者的故事')
+      $('#s10').html('她与他们的物语')
+      $('#s11').html('神乐芽亚')
+      $('#s12').html('Virtual98咖啡厅的正式女仆<br>主要负责前台工作<br>“主人  大小姐  钱都准备好了么<br>芽亚的服务可不免费哦”<br>特立独行的她受客人追捧<br>也让店长头疼<br>这样的她   心中其实藏有一个梦想')
+      $('#s13').html('湊阿库娅')
+      $('#s14').html('Virtual98咖啡厅的见习女仆<br>前台实习工作中<br>这一份工作 我会努力的！！！！！<br>诶 不能这样大喊大叫么<br>天使般可爱的外表和充满活力的态度<br>料理方面有着毁灭性的才能<br>和芽亚似乎有着颇深的渊源')
+      $('#s15').html('雏')
+      $('#s16').html('Virtual98咖啡厅的女仆<br>是咖啡厅的“救火队员”<br>“好寂寞  为什么会这样呢 <br>为什么明明是假期却没有人陪雏玩呢”<br>贪玩却有着众多技能<br>能在各种地方都帮上忙<br>是一个极看重友情的女孩子')
+      $('#s17').html('信姬')
+      $('#s18').html('Virtual98咖啡厅的女仆长<br>店内地位仅次于店长<br>“真是的  你到底是怎么了呀<br>我呀 很理解你的心情哦”<br>充满着电波感和中二气息<br>但在关键时刻却意外的可靠<br><br>')
+      $('#s19').html('玛娜')
+      $('#s20').html('Virtual98咖啡厅的女仆<br>负责后厨<br>“我为大家做好了点心<br>可以的话  请享用吧”<br>性格有些柔弱内向<br>一旦固执起来……<br><br>')
+      $('#s21').html('店长')
+      $('#s22').html('Virtual98咖啡厅的店长<br>认真负责  事必躬亲<br>经营着咖啡厅的她<br>并没有忘记自己的梦想<br><br><br><br>')
+      $('#s23').html('联系、合作或加入我们')
+
+
+
+
       $('#gamelogoJ').hide();
       $('#gamelogoC').show();
       Fresize()
-      
-      }
-    
+
+    }
+
 
 
 
@@ -327,29 +506,13 @@
 
   </script>
   <script type="text/javascript">
-    window.onload=clock;
-    function clock(){
-    var today=new Date(),//当前时间
-        h=today.getHours(),
-        m=today.getMinutes(),
-        s=today.getSeconds();
-      var stopTime=new Date("Jan 24 2020 23:59:59"),//结束时间
-        stopH=stopTime.getHours(),
-        stopM=stopTime.getMinutes(),
-        stopS=stopTime.getSeconds();
-      var shenyu=stopTime.getTime()-today.getTime(),//倒计时毫秒数
-        shengyuD=parseInt(shenyu/(60*60*24*1000)),//转换为天
-        D=parseInt(shenyu)-parseInt(shengyuD*60*60*24*1000),//除去天的毫秒数
-        shengyuH=parseInt(D/(60*60*1000)),//除去天的毫秒数转换成小时
-        H=D-shengyuH*60*60*1000,//除去天、小时的毫秒数
-        shengyuM=parseInt(H/(60*1000)),//除去天的毫秒数转换成分钟
-        M=H-shengyuM*60*1000;//除去天、小时、分的毫秒数
-        S=parseInt((shenyu-shengyuD*60*60*24*1000-shengyuH*60*60*1000-shengyuM*60*1000)/1000)//除去天、小时、分的毫秒数转化为秒
-        document.getElementById("timer").innerHTML=(shengyuD+"D"+shengyuH+"H"+shengyuM+"M"+S+"S"+"<br>");
-        // setTimeout("clock()",500);
-        setTimeout(clock,500);
-    }
-    </script>
+  function page(n){
+    // $("body").removeAttr("class");
+    // $("body").addClass('fp-viewing-'+n);
+    // // $("body").addClass('nav--overlay-open');
+  }
+  
+  </script>
 </body>
 
 </html>
