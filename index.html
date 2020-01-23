@@ -142,7 +142,7 @@
       <div id="fullpage" class="fullscreen-img">
 
         <!-- Hero -->
-        <div class="section hero bg-img">
+        <div class="section hero bg-img" id='page0'>
           <div class="container">
             <div class="nightRight">
               <div class="shooting_star"></div>
@@ -182,7 +182,7 @@
 
 
         <!-- Hero -->
-        <div class="section hero bg-img">
+        <div class="section hero bg-img" id='page1'>
           <div class="container">
 
             <div class="hero__outer">
@@ -221,7 +221,7 @@
           </div>
         </div> <!-- end hero -->
 
-        <div class="section hero bg-img">
+        <div class="section hero bg-img" id='page2'>
 
           <div id='main'>
             <iframe class='videoframe' src="https:///player.bilibili.com/player.html?aid=59530828&cid=104020671&page=1"
@@ -231,7 +231,7 @@
         </div> <!-- end hero -->
 
         <!-- Services -->
-        <div class="section hero bg-img">
+        <div class="section hero bg-img" id='page3'>
           <div class="container pt-sm-60">
 
             <div class="heading-row text-center">
@@ -262,8 +262,8 @@
                     </a>
                     <div class="feature__text">
                       <h3 class="feature__title bottom-line" id='s13'>湊阿库娅</h3>
-                      <p class="feature__text__paragraph" id='s14'>Virtual98咖啡厅的见习女仆<br>前台实习工作中<br>这一份工作 我会努力的！！！！！<br>诶
-                        不能这样大喊大叫么<br>天使般可爱的外表和充满活力的态度<br>料理方面有着毁灭性的才能<br>和芽亚似乎有着颇深的渊源</p>
+                      <p class="feature__text__paragraph" id='s14'>Virtual98咖啡厅的见习女仆<br>前台实习工作中<br>“这一份工作 我会努力的！！！！！<br>诶
+                        不能这样大喊大叫么”<br>天使般可爱的外表和充满活力的态度<br>料理方面有着毁灭性的才能<br>和芽亚似乎有着颇深的渊源</p>
                     </div>
                   </div>
                 </div> <!-- end feature item -->
@@ -330,7 +330,7 @@
         </div> <!-- end services -->
 
 
-        <div class="section hero bg-img">
+        <div class="section hero bg-img" id='page4'>
 
           <div id='main'>
             <div id='downloadFrame'>
@@ -348,7 +348,7 @@
 
 
         <!-- Contact -->
-        <div class="section hero bg-img">
+        <div class="section hero bg-img" id='page5'>
           <div class="container pt-sm-60">
             <div class="hero__outer">
               <div class="hero__inner text-center">
@@ -396,6 +396,9 @@
   <script type="text/javascript" src="js/scripts.js"></script>
   <script>
     function Fresize() {
+
+
+
       var borderdivX = window.innerWidth - 64;
       var borderdivY = window.innerHeight - 64;
       var borderPositionT = window.innerWidth / 2 - 90;
@@ -441,10 +444,10 @@
       $('#s11').html('神楽めあ')
       $('#s12').html('Virtual98カフェの正式メイド<br>フロントの仕事を担当する<br>"ご主人様　お嬢様　お金はもう準備しましたか<br>めあのサービスは無料ではありませんからね”<br>独立独行する彼女は客に持てはやされている<br>店長を悩ませる<br>そんな彼女の胸には夢を一つ隠している')
       $('#s13').html('湊あくあ')
-      $('#s14').html('Virtual98カフェの見習いメイド<br>フロント実習中<br>この仕事　頑張ります！！！！！<br>え　そう叫んではいけないの<br>天使のようなかわいい外見と元気に満ちてる態度<br>料理には壊滅的な才能がある<br>めあと深い縁があるようだ<br><br><br><br>')
+      $('#s14').html('Virtual98カフェの見習いメイド<br>フロント実習中<br>"この仕事　頑張ります！！！！！<br>え　そう叫んではいけないの"<br>天使のようなかわいい外見と元気に満ちてる態度<br>料理には壊滅的な才能がある<br>めあと深い縁があるようだ<br><br><br><br>')
       $('#s15').html('ひな')
       $('#s16').html('Virtual98カフェのメイド<br>カフェの“消火隊員”<br>“寂しい　何でこうなるんの<br>なぜ休みなのに遊びしてくれる人がいないの”<br>遊びほうけるだが技能をいっぱい持ってる<br>いろんなところで力になれる<br>友情を大切にする女の子<br><br><br>')
-      $('#s17').html('のぶひめ')
+      $('#s17').html('ひめ')
       $('#s18').html('Virtual98カフェのメイド長<br>店長に次ぐ地位にある<br>“まったく　一体どうしたの<br>私ね　君の気持ちよく分かってるよ”<br>電波感と中二の感じが満ちる<br>肝心な時には意外に頼もしい<br><br><br><br><br><br>')
       $('#s19').html('マナ')
       $('#s20').html('Virtual98カフェのメイド<br> キッチンの仕事を勤める<br>“みんなにお菓子を用意した<br>よければ　お召し上がりくださいませ”<br>性格が気弱で内向である<br>意固地になると……<br><br><br><br><br>')
@@ -507,9 +510,32 @@
   </script>
   <script type="text/javascript">
   function page(n){
-    // $("body").removeAttr("class");
-    // $("body").addClass('fp-viewing-'+n);
-    // // $("body").addClass('nav--overlay-open');
+    for(var i=0;i<=5;i++){
+    var obj=$('#fp-nav').find('a')[i]
+      obj.setAttribute('id','trigger'+i);
+
+    }
+
+    for(var i=0;i<=5;i++){
+    var obj=$('#fp-nav').find('a')[i]
+      obj.removeAttribute('class','active')
+      
+    }
+    $('#fp-nav').find('a')[n].setAttribute('class','active');
+    $("body").removeAttr("class");
+    $("body").addClass('fp-viewing-'+n);
+    $('#nav__overlay').removeAttr("class");
+    $('#nav__overlay').addClass("nav__overlay");
+    $("trigger"+n).trigger("click");
+
+
+    
+    var pos=-(n-1)*$('#page0').height();;
+
+
+    $('#page'+n).addClass('active fp-completely');
+    $("#fullpage").removeAttr("style")
+    $("#fullpage").attr({ "style": 'height: 100%; position: relative; touch-action: none; transform: translate3d(0px,' + pos +'px, 0px); transition: all 700ms ease 0s;'})
   }
   
   </script>
