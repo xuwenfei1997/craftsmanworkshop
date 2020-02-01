@@ -5016,7 +5016,7 @@ color: white;
 #downloadDiv{
   background-color:#ffedc2;
   border: red 2px dotted;
-
+  font-size: 50px;
 }
 
 #downloadFrame{
