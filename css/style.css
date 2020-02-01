@@ -5016,7 +5016,7 @@ color: white;
 #downloadDiv{
   background-color:#ffedc2;
   border: red 2px dotted;
-  font-size: 50px;
+  font-size: 30px;
 }
 
 #downloadFrame{
@@ -5042,4 +5042,20 @@ margin-bottom: 20px;
 font-weight: 700;
 color: white;
 cursor: pointer;
+}
+
+
+.brieftext1{
+  -webkit-font-smoothing: antialiased;
+-webkit-tap-highlight-color: transparent;
+box-sizing: border-box;
+margin: 0.67em 0;
+font-family: "Karla", sans-serif;
+margin-top: 0;
+line-height: 1.2;
+letter-spacing: -0.04em;
+font-size: 30px;
+margin-bottom: 20px;
+font-weight: 700;
+color: white;
 }
