@@ -352,6 +352,20 @@
 
         </div> <!-- end hero -->
 
+        <div class="section hero bg-img" id='page4'>
+
+          <div id='main'>
+            <div id='encodeFrame'>
+            
+              <textarea id="input" placeholder="咩进制换算" rows=10></textarea>
+              <button type="button" onclick="onEncodeClick()">加密</button>
+              <button type="button" onclick="onDecodeClick()">解密</button>
+            
+            
+            </div>
+          </div>
+
+        </div> <!-- end hero -->
 
 
         <!-- Contact -->
@@ -401,6 +415,7 @@
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/plugins.js"></script>
   <script type="text/javascript" src="js/scripts.js"></script>
+  <script type="text/javascript" src="js/meaEncode.js"></script>
   <script>
     function Fresize() {
 
@@ -416,9 +431,10 @@
       var downloadPositionY = window.innerHeight / 2 - $("#downloadFrame").height() / 2;
       // var downloadPositionY = 200;
       // var downloadPositionX = 75;
-      var timerPositionX = window.innerWidth / 2 - $("#pageofcoming").width() / 2;
-      var timerPositionY = window.innerHeight / 2 - $("#pageofcoming").height() / 2;
-
+      var encoderX = window.innerWidth / 2 - $("#encodeFrame").width() / 2;
+      var encoderY = window.innerHeight / 2 - $("#encodeFrame").height() / 2;
+      console.log($("#encodeFrame").width())
+      console.log($("#encodeFrame").height())
       $('#top-border').attr({ "style": "top:0;left:" + borderPositionT + 'px' })
       $('#bottom-border').attr({ "style": "bottom:0;left:" + borderPositionB + 'px' })
       $('.videoframe').attr({ "style": "top:" + videoPositionY + 'px;left:' + videoPositionX + "px" })
@@ -427,7 +443,7 @@
       $('#rightborder').attr({ "style": "height:" + borderdivY + 'px' })
       $('#topborder').attr({ "style": "width:" + borderdivX + 'px' })
       $('#bottomborder').attr({ "style": "width:" + borderdivX + 'px' })
-
+      $('#encodeFrame').attr({ "style": "top:" + encoderY + 'px;left:' + encoderX + "px" })
     }
 
 
