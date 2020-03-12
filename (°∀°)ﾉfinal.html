@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>(°∀°)ﾉ</title>
+    <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
+    <script>
+        // (C)2020 Xinerama@Tekoki Workshop
+        const HEADER = '(°∀°)ﾉ';
+        const peko = window.pako;
+
+        const matchAll = (str, regex) =>
+            str.matchAll(regex).next().value;
+
+        const encode = (data, file = null) => {
+            let result = '';
+            if (file == null) {
+                data = new TextEncoder('utf-8').encode(data);
+            }
+            let compressed = peko.deflate(data);
+            result += HEADER;
+            compressed = Array.from(compressed);
+            compressed.forEach(v => {
+                for (let i = 0; i < 8; i++) {
+                    result += String.fromCharCode(8205 + (v & 1));
+                    v >>= 1;
+                }
+            });
+            result += 'h';
+            if (file) {
+                let filename = file.name + '///' + file.type;
+                console.log(filename);
+                filename = new TextEncoder('utf-8').encode(filename);
+                console.log(filename);
+                Array.from(filename).forEach(v => {
+                    for (let i = 0; i < 8; i++) {
+                        result += String.fromCharCode(8205 + (v & 1));
+                        v >>= 1;
+                    }
+                });
+            }
+            return result + 'i';
+        }
+
+        const decode = str => {
+            let result = [];
+            if (!str.includes(HEADER)) {
+                console.log('header not found');
+                return '解密失败';
+            }
+            str = str.split(HEADER).reverse()[0];
+            str = str.replace(/^\s+|\s+$/g, '');
+            let datastr = str.split(/h[\u200d\u200e]*i/)[0];
+            if (datastr.length % 8) {
+                console.log('wrong message length');
+                return '解密失败';
+            }
+            for (let i = 0; i < datastr.length; i += 8) {
+                let tmp = 0;
+                for (let j = 7; j >= 0; j--) {
+                    tmp <<= 1;
+                    tmp += datastr.charCodeAt(i + j) - 8205;
+                }
+                result.push(tmp);
+            }
+            result = Uint8Array.from(result);
+            try {
+                result = peko.inflate(result);
+            } catch (error) {
+                return '解密失败';
+            }
+            let fileinfo = str.match(/h[\u200d\u200e]+i/);
+            if (fileinfo) {
+                fileinfo = fileinfo[0].slice(1, -1);
+                let res = [];
+                for (let i = 0; i < fileinfo.length; i += 8) {
+                    let tmp = 0;
+                    for (let j = 7; j >= 0; j--) {
+                        tmp <<= 1;
+                        tmp += fileinfo.charCodeAt(i + j) - 8205;
+                    }
+                    res.push(tmp);
+                }
+                fileinfo = new TextDecoder('utf-8').decode(Uint8Array.from(res));
+                console.log(fileinfo);
+                let [name, type] = fileinfo.split('///');
+                return { blob: new Blob([result], { type }), name };
+            } else return new TextDecoder('utf-8').decode(result);
+        }
+
+        const download = ({ blob, name }) => {
+            let url = URL.createObjectURL(blob);
+            let link = document.createElement('a');
+
+            link.style.display = 'none';
+            link.href = url;
+            link.setAttribute('download', name);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+</head>
+
+<body>
+    <div id="newLayer" style="display: none;text-align: center;">
+        <div id="helpWindow">
+            <p style="font-size: large;">手艺人工坊翻译器帮助</p>
+            <p>将需要打码的文字输入在上面的文本框里，点击『您吃了吗』按钮，就能在下面得到打码后的文字。</p>
+
+            <p>将需要解码的文字输入在下面的文本框里，点击『我还没吃』按钮，就能在上面的文本框里得到解码后的文字。</p>
+                
+            <p>顺便说下，为什么有时候会出现『解密失败』的情况，那是因为某些深井冰的网站（百度说的就是你！），会将繁体字转换为简体字，这样你复制后的文字已经不是最初的原文了，所以解不出。本解密姬已经尽力的去尝试解密了，可惜还是无能为力，十分抱歉o(>﹏<)o</p>
+                
+            
+            <button type="button" onclick="closeHelp()">理解理解</button>
+        </div>
+    </div>
+
+    <div id='container' style="padding-left: 20%;padding-right:20%">
+        <textarea id="input" placeholder="(°∀°)ﾉhi" style="font-family:Arial, Helvetica, sans-serif;"
+            rows=10></textarea>
+        <input type="file" id="selectFile" hidden disabled />
+        <button id="encodeButton" type="button" onclick="onEncodeClick()">您吃了吗</button>
+        <button type="button" onclick="onDecodeClick()">我还没吃</button>
+        <button id='helpButton' type="button" onclick="help()" style="position:absolute;right:20%;">我忘啦</button>
+        <!-- <button type="button" onclick="exportAsText()">导出为txt</button>
+    <button type="button" class="btn" data-clipboard-target="#input" data-clipboard-action="cut">剪切到剪贴板</button> -->
+    <div><span>由</span><a href='https://space.bilibili.com/405573324'>手艺人工坊</a>进行制作</div>
+        <script>
+            new ClipboardJS('.btn');
+            let files = [];
+            let encodeButton = document.getElementById('encodeButton');
+            document.getElementById('selectFile').onchange = e => {
+                files = e.target.files;
+                console.log(files);
+            };
+            const onEncodeClick = async () => {
+                let result;
+                if (files.length) {
+                    let reader = new FileReader();
+                    let f = files[0];
+                    reader.readAsArrayBuffer(f);
+                    let data = new Uint8Array(await new Promise((resolv, reject) => {
+                        reader.onload = () => resolv(reader.result);
+                        reader.onerror = ev => reject(ev);
+                    }));
+                    result = encode(data, f);
+                } else {
+                    result = encode(document.getElementById('input').value);
+                }
+                document.getElementById('input').value = result;
+                encodeButton.setAttribute('disabled', true);
+                let time = 3;
+                let interval = setInterval(() => {
+                    if (!time) {
+                        clearInterval(interval);
+                        encodeButton.removeAttribute('disabled');
+                        encodeButton.innerText = '加密';
+                        return;
+                    }
+                    time--;
+                    encodeButton.innerText = '加密(' + time + ')';
+                }, 1000);
+            };
+
+            const onDecodeClick = () => {
+                let result = decode(document.getElementById('input').value);
+                if (typeof result == 'string') {
+                    document.getElementById('input').value = decode(document.getElementById('input').value);
+                } else {
+                    download(result);
+                }
+            }
+
+            /*
+            const exportAsText = () => {
+                let text = document.getElementById('input').value;
+                if (text != '') {
+                    let blob = new Blob([new TextEncoder('utf-8').encode(text)], {type: 'text/plain'});
+                    let name = '密文.txt';
+                    download({blob, name});
+                }
+            }
+            */
+        </script>
+    </div>
+</body>
+<style>
+
+    #input {
+        width: 100%;
+        border: solid 1px black;
+    }
+
+    #newLayer {
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 100;
+        background: rgb(53, 53, 53);
+    }
+    #helpWindow{
+        border: solid 1px black;
+        padding: 30px;
+        margin:10% 30%;
+        background-color: white;
+        text-align: center;
+        color:  black;
+    }
+    p{
+        color: black;
+    }
+</style>
+<script>
+    function help() {
+        document.getElementById('newLayer').removeAttribute('style')
+    }
+    function closeHelp() {
+        document.getElementById('newLayer').setAttribute('style','display:none;')
+    }
+
+
+    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        console.log('mobile')
+        document.getElementById('container').width=window.innerWidth;
+        // document.getElementById('helpButton').setAttribute('style','style="position:absolute')
+
+
+    } else {
+        console.log('PC')
+    }
+
+</script>
+
+</html>
