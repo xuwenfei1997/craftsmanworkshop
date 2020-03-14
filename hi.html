@@ -136,12 +136,11 @@
         <p id="wordCount"></p>
         <!-- <button type="button" onclick="exportAsText()">导出为txt</button>
     <button type="button" class="btn" data-clipboard-target="#input" data-clipboard-action="cut">剪切到剪贴板</button> -->
-    <div><span>作者：Xinerama：颜文字表示对此工具的非法使用概不负责，使用该工具发布信息可能有封号风险。<br /></span>
+    <div style="text-align: center;"><span>作者：Xinerama：颜文字表示对此工具的非法使用概不负责，使用该工具发布信息可能有封号风险。<br /></span>
     <span>由</span><a href='https://space.bilibili.com/405573324'>手艺人工坊</a><span>提供：做Anti我们更专业。</span>
     
     
     </div>
-
     </div>
     <script>
         // new ClipboardJS('.btn');
@@ -169,7 +168,7 @@
             }
             input.value = result;
             encodeButton.setAttribute('disabled', true);
-            wordCount.innerText = input.value.length + ' double words';
+            wordCount.innerText = input.value.length + '双字节值';
             let time = 3;
             let interval = setInterval(() => {
                 if (!time) {
@@ -182,7 +181,6 @@
                 encodeButton.innerText = '您吃了吗(' + time + ')';
             }, 1000);
         };
-
         const onDecodeClick = () => {
             wordCount.innerText = '';
             let result = decode(input.value);
@@ -202,7 +200,6 @@
         width: 100%;
         border: solid 1px black;
     }
-
     #newLayer {
         position: fixed;
         left: 0;
@@ -231,18 +228,13 @@
     function closeHelp() {
         document.getElementById('newLayer').setAttribute('style','display:none;')
     }
-
-
     if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
         console.log('mobile')
         document.getElementById('container').width=window.innerWidth;
         // document.getElementById('helpButton').setAttribute('style','style="position:absolute')
-
-
     } else {
         console.log('PC')
     }
-
 </script>
 
 </html>
