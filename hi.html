@@ -3,93 +3,99 @@
 
 <head>
     <meta charset="utf-8">
-    <title>(°∀°)ﾉ</title>
+    <title>有言在先</title>
     <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
     <script>
         // (C)2020 Xinerama@Tekoki Workshop
         const HEADER = '(°∀°)ﾉ';
         const peko = window.pako;
 
-        const matchAll = (str, regex) =>
-            str.matchAll(regex).next().value;
+        const zip = data => peko.deflate(data, {level: 9});
+        const unzip = data => peko.inflate(data);
 
-        const encode = (data, file = null) => {
+        const u8arr2str = arr => new TextDecoder('utf-8').decode(arr);
+        const str2u8arr = str => new TextEncoder('utf-8').encode(str);
+
+        const e = data => {
             let result = '';
-            if (file == null) {
-                data = new TextEncoder('utf-8').encode(data);
-            }
-            let compressed = peko.deflate(data);
-            result += HEADER;
-            compressed = Array.from(compressed);
-            compressed.forEach(v => {
-                for (let i = 0; i < 8; i++) {
+            data.forEach(v => {
+                for(let i =  0; i < 8; i ++) {
                     result += String.fromCharCode(8205 + (v & 1));
                     v >>= 1;
                 }
             });
+            return result;
+        };
+
+        const ze = data => {
+            if (typeof data == 'string') {
+                data = str2u8arr(data);
+            }
+            let d = zip(data);
+            if (d.byteLength < data.byteLength) {
+                data = d;
+            }
+            return e(data);
+        };
+
+        const d = str => {
+            let result = [];
+            for (let i = 0; i < str.length; i += 8) {
+                let tmp = 0;
+                for (let j = 7; j >= 0; j--) {
+                    tmp <<= 1;
+                    tmp += str.charCodeAt(i + j) - 8205;
+                }
+                result.push(tmp);
+            }
+            return Uint8Array.from(result);
+        };
+
+        const ud = str => {
+            let data = d(str);
+            let uncompressed;
+            try {
+                uncompressed = peko.inflate(data);
+            } catch (error) {
+                return data;
+            }
+            return uncompressed;
+        };
+
+        const encode = (data, file = null) => {
+            let result = HEADER;
+            result += ze(data);
             result += 'h';
             if (file) {
                 let filename = file.name + '///' + file.type;
-                console.log(filename);
-                filename = new TextEncoder('utf-8').encode(filename);
-                console.log(filename);
-                Array.from(filename).forEach(v => {
-                    for (let i = 0; i < 8; i++) {
-                        result += String.fromCharCode(8205 + (v & 1));
-                        v >>= 1;
-                    }
-                });
+                result += ze(filename);
             }
             return result + 'i';
         }
 
         const decode = str => {
-            let result = [];
             if (!str.includes(HEADER)) {
                 console.log('header not found');
                 return '解密失败';
             }
             str = str.split(HEADER).reverse()[0];
             str = str.replace(/^\s+|\s+$/g, '');
-            let datastr = str.split(/h[\u200d\u200e]*i/)[0];
-            if (datastr.length % 8) {
+            let data = str.split(/h[\u200d\u200e]*i/)[0];
+            if (data.length % 8) {
                 console.log('wrong message length');
                 return '解密失败';
             }
-            for (let i = 0; i < datastr.length; i += 8) {
-                let tmp = 0;
-                for (let j = 7; j >= 0; j--) {
-                    tmp <<= 1;
-                    tmp += datastr.charCodeAt(i + j) - 8205;
-                }
-                result.push(tmp);
-            }
-            result = Uint8Array.from(result);
-            try {
-                result = peko.inflate(result);
-            } catch (error) {
-                return '解密失败';
-            }
+            let result = ud(data);
             let fileinfo = str.match(/h[\u200d\u200e]+i/);
             if (fileinfo) {
                 fileinfo = fileinfo[0].slice(1, -1);
-                let res = [];
-                for (let i = 0; i < fileinfo.length; i += 8) {
-                    let tmp = 0;
-                    for (let j = 7; j >= 0; j--) {
-                        tmp <<= 1;
-                        tmp += fileinfo.charCodeAt(i + j) - 8205;
-                    }
-                    res.push(tmp);
-                }
-                fileinfo = new TextDecoder('utf-8').decode(Uint8Array.from(res));
-                console.log(fileinfo);
+                fileinfo = u8arr2str(ud(fileinfo));
                 let [name, type] = fileinfo.split('///');
-                return { blob: new Blob([result], { type }), name };
-            } else return new TextDecoder('utf-8').decode(result);
+                return { blob: new Blob([result], {type}), name };
+            } else return u8arr2str(result);
         }
 
-        const download = ({ blob, name }) => {
+        const download = ({blob, name}) => {
             let url = URL.createObjectURL(blob);
             let link = document.createElement('a');
 
@@ -107,12 +113,12 @@
 <body>
     <div id="newLayer" style="display: none;text-align: center;">
         <div id="helpWindow">
-            <p style="font-size: large;">手艺人工坊翻译器帮助</p>
-            <p>将需要打码的文字输入在上面的文本框里，点击『您吃了吗』按钮，就能在下面得到打码后的文字。</p>
+            <p style="font-size: large;">有言在先翻译器帮助</p>
+            <p>将需要打码的文字输入在上面的文本框里，点击『您吃了吗』按钮，就能在得到加密后的颜文字。</p>
 
-            <p>将需要解码的文字输入在下面的文本框里，点击『我还没吃』按钮，就能在上面的文本框里得到解码后的文字。</p>
+            <p>将颜文字输入在下面的文本框里，点击『我还没吃』按钮，就能在文本框里得到解码后的文字。</p>
                 
-            <p>顺便说下，为什么有时候会出现『解密失败』的情况，那是因为某些深井冰的网站（百度说的就是你！），会将繁体字转换为简体字，这样你复制后的文字已经不是最初的原文了，所以解不出。本解密姬已经尽力的去尝试解密了，可惜还是无能为力，十分抱歉o(>﹏<)o</p>
+           
                 
             
             <button type="button" onclick="closeHelp()">理解理解</button>
@@ -120,73 +126,73 @@
     </div>
 
     <div id='container' style="padding-left: 20%;padding-right:20%">
+        <p style="font-size: 32px;text-align: center;">有言在先</p>
         <textarea id="input" placeholder="(°∀°)ﾉhi" style="font-family:Arial, Helvetica, sans-serif;"
             rows=10></textarea>
         <input type="file" id="selectFile" hidden disabled />
         <button id="encodeButton" type="button" onclick="onEncodeClick()">您吃了吗</button>
         <button type="button" onclick="onDecodeClick()">我还没吃</button>
         <button id='helpButton' type="button" onclick="help()" style="position:absolute;right:20%;">我忘啦</button>
+        <p id="wordCount"></p>
         <!-- <button type="button" onclick="exportAsText()">导出为txt</button>
     <button type="button" class="btn" data-clipboard-target="#input" data-clipboard-action="cut">剪切到剪贴板</button> -->
-    <div><span>由</span><a href='https://space.bilibili.com/405573324'>手艺人工坊</a>进行制作</div>
-        <script>
-            new ClipboardJS('.btn');
-            let files = [];
-            let encodeButton = document.getElementById('encodeButton');
-            document.getElementById('selectFile').onchange = e => {
-                files = e.target.files;
-                console.log(files);
-            };
-            const onEncodeClick = async () => {
-                let result;
-                if (files.length) {
-                    let reader = new FileReader();
-                    let f = files[0];
-                    reader.readAsArrayBuffer(f);
-                    let data = new Uint8Array(await new Promise((resolv, reject) => {
-                        reader.onload = () => resolv(reader.result);
-                        reader.onerror = ev => reject(ev);
-                    }));
-                    result = encode(data, f);
-                } else {
-                    result = encode(document.getElementById('input').value);
-                }
-                document.getElementById('input').value = result;
-                encodeButton.setAttribute('disabled', true);
-                let time = 3;
-                let interval = setInterval(() => {
-                    if (!time) {
-                        clearInterval(interval);
-                        encodeButton.removeAttribute('disabled');
-                        encodeButton.innerText = '加密';
-                        return;
-                    }
-                    time--;
-                    encodeButton.innerText = '加密(' + time + ')';
-                }, 1000);
-            };
-
-            const onDecodeClick = () => {
-                let result = decode(document.getElementById('input').value);
-                if (typeof result == 'string') {
-                    document.getElementById('input').value = decode(document.getElementById('input').value);
-                } else {
-                    download(result);
-                }
-            }
-
-            /*
-            const exportAsText = () => {
-                let text = document.getElementById('input').value;
-                if (text != '') {
-                    let blob = new Blob([new TextEncoder('utf-8').encode(text)], {type: 'text/plain'});
-                    let name = '密文.txt';
-                    download({blob, name});
-                }
-            }
-            */
-        </script>
+    <div><span>作者：Xinerama：颜文字表示对此工具的非法使用概不负责，使用该工具发布信息可能有封号风险。<br /></span>
+    <span>由</span><a href='https://space.bilibili.com/405573324'>手艺人工坊</a><span>提供：做Anti我们更专业。</span>
+    
+    
     </div>
+
+    </div>
+    <script>
+        // new ClipboardJS('.btn');
+        let files = [];
+        const wordCount = document.getElementById('wordCount');
+        const input = document.getElementById('input');
+        const encodeButton = document.getElementById('encodeButton');
+        document.getElementById('selectFile').onchange = e => {
+            files = e.target.files;
+            console.log(files);
+        };
+        const onEncodeClick = async () => {
+            let result;
+            if (files.length) {
+                let reader = new FileReader();
+                let f = files[0];
+                reader.readAsArrayBuffer(f);
+                let data = new Uint8Array(await new Promise((resolv, reject) => {
+                    reader.onload = () => resolv(reader.result);
+                    reader.onerror = ev => reject(ev);
+                }));
+                result = encode(data, f);
+            } else {
+                result = encode(input.value);
+            }
+            input.value = result;
+            encodeButton.setAttribute('disabled', true);
+            wordCount.innerText = input.value.length + ' double words';
+            let time = 3;
+            let interval = setInterval(() => {
+                if (!time) {
+                    clearInterval(interval);
+                    encodeButton.removeAttribute('disabled');
+                    encodeButton.innerText = '您吃了吗';
+                    return;
+                }
+                time --;
+                encodeButton.innerText = '您吃了吗(' + time + ')';
+            }, 1000);
+        };
+
+        const onDecodeClick = () => {
+            wordCount.innerText = '';
+            let result = decode(input.value);
+            if (typeof result == 'string') {
+                input.value = decode(input.value);
+            } else {
+                download(result);
+            }
+        }
+    </script>
 </body>
 <style>
     button{
