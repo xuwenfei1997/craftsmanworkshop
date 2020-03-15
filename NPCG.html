@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="scn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=yes, initial-scale=1">
+    <meta name="description" content="RPG_Chracter_Generator">
+    <meta name="author" content="NilClass">
+    <title>MV_Generator</title>
+    <link href="js/libs/color/farbtastic.css" rel="stylesheet">
+    <script src="js/libs/jquery.js"></script>
+    <script src="js/libs/color/farbtastic.js"></script>
+    <script src="js/libs/pixi.min.js"></script>
+    <script src="js/libs/current-device.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0
+        }
+
+        .mainDiv {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            /*overflow: scroll;*/
+        }
+
+        #genderList {
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            width: auto;
+            height: auto;
+        }
+
+        #typeList {
+            position: absolute;
+            left: 120px;
+            top: 5px;
+            width: auto;
+            height: auto;
+        }
+
+        #listBlock {
+            position: absolute;
+            top:0px;
+            left:0px;
+            width: auto;
+            height: auto;
+        }
+
+        #colorTools {
+            position: absolute;
+            top: 320px;
+            left: 5px;
+        }
+
+        #resultArea {
+            position: absolute;
+            top: 575px;
+            left: 5px;
+            width: 710px;
+        }
+
+        #copyrightArea {
+            float: right;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('#colorpicker').farbtastic('#color');
+        });
+    </script>
+</head>
+
+<body style="background-color:#32373c">
+    <div class="mainDiv" id="Maindiv">
+    </div>
+    <div id="listBlock">
+        <div class="bList" id="genderList">
+        </div>
+        <div class="bList" id="typeList">
+        </div>
+    </div>
+    <div id="colorTools">
+        <form><input type="text" id="color" name="color" value="#ffffff" hidden="hidden" /></form>
+        <div id="colorpicker"></div>
+    </div>
+    <div id="resultArea">
+        <div id="copyrightArea">
+            <p>手艺人工坊制作</p>
+            <p>Produced by Craftsman Workshop</p>
+            <a href="https://space.bilibili.com/405573324" style="color: wheat">https://space.bilibili.com/405573324</a>
+        </div>
+        <div id="downloadBlock">
+        </div>
+        <textarea id="result" spellcheck="false" readonly="readonly"></textarea>
+    </div>
+    <script src="js/NC_Generator.js"></script>
+    <script>
+        //获取尺寸
+        //GENERAL_RATIO = 1
+        //var GENERAL_WIDTH = 730;
+        //var GENERAL_HEIGHT = 624
+        //if (device.mobile()) {
+        //    Xratio = window.innerWidth / GENERAL_WIDTH;
+        //    Yratio = window.innerHeight / GENERAL_HEIGHT;
+        //    if (Xratio < 1 || Yratio < 1) {
+        //        if (Xratio <= Yratio) {
+        //            GENERAL_RATIO = Xratio
+        //        } else {
+        //            GENERAL_RATIO = Yratio
+        //        }
+        //    }
+        //}
+        //生成PIXI舞台
+        var mainDiv = document.getElementById("Maindiv");
+
+        let app = new PIXI.Application({ width: 480, height: 324, transparent: true });
+        mainDiv.appendChild(app.view);
+        app.renderer.view.style.marginLeft += 240 + 10 + "px";
+        app.renderer.view.style.position = "absolute";
+        app.renderer.view.style.display = "block";
+        //app.stage.scale.x = GENERAL_RATIO;
+        //app.stage.scale.y = GENERAL_RATIO;
+        let output = new PIXI.Application({ width: 144, height: 192, transparent: true });
+        mainDiv.appendChild(output.view);
+
+        output.view.style.marginLeft = 240 + 10 + "px";
+        output.view.style.marginTop = 300 + "px"
+        //调整尺寸
+        //var tl = document.getElementById('typeList');
+        //var cl = document.getElementById('colorTools');
+        //var cr = document.getElementById('copyrightArea');
+        //tl.style.left = 101 * GENERAL_RATIO + 19 + "px"
+        //cl.style.top = 320 + 50 * (1 - GENERAL_RATIO) + "px"
+        //cr.style.left = 730 * GENERAL_RATIO + "px"
+        //cr.style.fontSize = 14 * GENERAL_RATIO + "px";
+    </script>
+    <script>
+        GEN.loadEverything();
+    </script>
+</body>
+
+</html>
