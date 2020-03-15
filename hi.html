@@ -114,9 +114,9 @@
     <div id="newLayer" style="display: none;text-align: center;">
         <div id="helpWindow">
             <p style="font-size: large;">有言在先翻译器帮助</p>
-            <p>将需要打码的文字输入在上面的文本框里，点击『您吃了吗』按钮，就能在得到打码后的颜文字。</p>
+            <p>将需要打码的文字输入在文本框里，点击『您吃了吗』按钮，就能在得到打码后的颜文字。</p>
 
-            <p>将颜文字输入在下面的文本框里，点击『我还没吃』按钮，就能在文本框里得到解码后的文字。</p>
+            <p>将颜文字输入在文本框里，点击『我还没吃』按钮，就能在文本框里得到解码后的文字。</p>
                 
            
                 
@@ -212,7 +212,7 @@
     #helpWindow{
         border: solid 1px black;
         padding: 30px;
-        margin:10% 30%;
+        margin:10% 15%;
         background-color: white;
         text-align: center;
         color:  black;
@@ -230,6 +230,7 @@
     }
     if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
         console.log('mobile')
+        document.getElementById('container').removeAttribute('style')
         document.getElementById('container').width=window.innerWidth;
         // document.getElementById('helpButton').setAttribute('style','style="position:absolute')
     } else {
