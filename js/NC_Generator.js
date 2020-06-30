@@ -2754,11 +2754,13 @@ GEN.loadButtons = function () {
     GEN.downloadButton.style.fontSize = 14 + 'px'
     GEN.downloadButton.style.width = 100 + "px";
     GEN.downloadButton.style.height = 25 + "px";
-    GEN.downloadButton.textContent = '输出';
+    GEN.downloadButton.textContent = '下载';
     GEN.downloadButton.onclick = function () {
         output.render();
         GEN.output = output.view.toDataURL();
-        document.getElementById('result').value = GEN.output;
+        var a = document.getElementById('result')
+        a.href = GEN.output;
+        a.click();
         //console.log(output.view.toDataURL());
     }
     var db = document.getElementById('downloadBlock');
@@ -2783,38 +2785,45 @@ function symbolManager() {
 }
 
 symbolManager.prototype.initialize = function () {
-    this.genderSymbol;
-    this.typeSymbol;
-    this.bodySet = {};
+    this._genderSymbol;
+    this._typeSymbol;
+    this._bodySet = {};
+    this._EyeSet = {};
     for (symbol in GEN.genderSet) {
         switch (symbol) {
             case "男":
-                this.bodySet[symbol] = new PIXI.Sprite.from('assets/TV/Male/Body/TV_Body_p01.png')
+                this._bodySet[symbol] = new PIXI.Sprite.from('assets/TV/Male/Body/TV_Body_p01.png')
+                this._EyeSet[symbol] = new PIXI.Sprite.from('assets/TV/Male/Eye/TV_Eye_p01.png')
                 break;
             case "女":
-                this.bodySet[symbol] = new PIXI.Sprite.from('assets/TV/Female/Body/TV_Body_p01.png')
+                this._bodySet[symbol] = new PIXI.Sprite.from('assets/TV/Female/Body/TV_Body_p01.png')
+                this._EyeSet[symbol] = new PIXI.Sprite.from('assets/TV/Female/Eye/TV_Eye_p01.png')
                 break;
             case "儿童":
-                this.bodySet[symbol] = new PIXI.Sprite.from('assets/TV/Kid/Body/TV_Body_p01.png')
+                this._bodySet[symbol] = new PIXI.Sprite.from('assets/TV/Kid/Body/TV_Body_p01.png')
+                this._EyeSet[symbol] = new PIXI.Sprite.from('assets/TV/Kid/Eye/TV_Eye_p01.png')
                 break;
         }
     }
 }
 
 symbolManager.prototype.switchGender = function (s1) {
-    if (this.genderSymbol != s1) {
-        this.genderSymbol = s1;
+    if (this._genderSymbol != s1) {
+        this._genderSymbol = s1;
         this.addTypeButtons(s1);
         GEN.VariationMenu.clearAll();
         GEN.paintLayers[10].removeChildren();
-        GEN.paintLayers[10].addChild(this.bodySet[s1]);
-        GEN.VariationMenu.switchSymbol(this.genderSymbol, this.typeSymbol);
+        this._bodySet[s1].tint = 0xffffff
+        this._EyeSet[s1].tint = 0xffffff
+        GEN.paintLayers[10].addChild(this._bodySet[s1]);
+        GEN.paintLayers[10].addChild(this._EyeSet[s1]);
+        GEN.VariationMenu.switchSymbol(this._genderSymbol, this._typeSymbol);
     }
 }
 
 symbolManager.prototype.switchType = function (s2) {
-    this.typeSymbol = s2;
-    GEN.VariationMenu.switchSymbol(this.genderSymbol, this.typeSymbol);
+    this._typeSymbol = s2;
+    GEN.VariationMenu.switchSymbol(this._genderSymbol, this._typeSymbol);
 }
 
 symbolManager.prototype.addTypeButtons = function (s1) {
@@ -2824,6 +2833,37 @@ symbolManager.prototype.addTypeButtons = function (s1) {
             GEN.typeButtonList[s2] = null
         }
     }
+
+    //添加肤色按钮
+    var typeButton = document.createElement('button');
+    typeButton.id = '肤色';
+    typeButton.onclick = function () {
+        GEN.VariationMenu.switchSymbol('empty', null);
+        GEN.curSprite = [GEN.SymbolManager._bodySet[GEN.SymbolManager._genderSymbol]]
+        $('#color').val(GEN.processColorNum(GEN.curSprite[0].tint))
+    }
+    typeButton.style.fontSize = 14 + 'px'
+    typeButton.textContent = '肤色';
+    typeButton.style.width = 100 + "px";
+    //typeButton.style.height = 25  + "px";
+    GEN.typeButtonList['肤色'] = typeButton;
+    GEN.typeList.appendChild(typeButton)
+
+    //添加瞳色按钮
+    var typeButton = document.createElement('button');
+    typeButton.id = '瞳色';
+    typeButton.onclick = function () {
+        GEN.VariationMenu.switchSymbol('empty', null);
+        GEN.curSprite = [GEN.SymbolManager._EyeSet[GEN.SymbolManager._genderSymbol]]
+        $('#color').val(GEN.processColorNum(GEN.curSprite[0].tint))
+    }
+    typeButton.style.fontSize = 14 + 'px'
+    typeButton.textContent = '瞳色';
+    typeButton.style.width = 100 + "px";
+    //typeButton.style.height = 25  + "px";
+    GEN.typeButtonList['瞳色'] = typeButton;
+    GEN.typeList.appendChild(typeButton)
+
     for (s2 in GEN.genderSet[s1]) {
         var typeButton = document.createElement('button');
         typeButton.id = s2;
@@ -3094,6 +3134,9 @@ variationMenu.prototype.initialize = function () {
 }
 
 variationMenu.prototype.switchSymbol = function (s1, s2) {
+    if (s1 == 'empty') {
+        this.removeChild(this.curMenu());
+    }
     if (s1 && s2) {
         this.removeChild(this.curMenu());
         this._symbol = s1 + s2;
